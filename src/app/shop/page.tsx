@@ -8,9 +8,11 @@ import { ShopTabs, ShopTabKey } from "@/components/shop/ShopTabs";
 import { TopBrandsTab } from "@/components/shop/TopBrandsTab";
 import { NearbyStoresTab } from "@/components/shop/NearbyStoresTab";
 import { MarketplaceHome } from "@/components/shop/MarketplaceHome";
+import { getAllProducts } from "@/modules/catalog/repository";
 
 export default function ShopPage() {
   const [activeTab, setActiveTab] = useState<ShopTabKey>("marketplace");
+  const initialProducts = getAllProducts();
 
   return (
     <MobileContainer>
@@ -30,7 +32,9 @@ export default function ShopPage() {
           <NearbyStoresTab onGoToMarketplace={() => setActiveTab("marketplace")} />
         )}
 
-        {activeTab === "marketplace" && <MarketplaceHome />}
+        {activeTab === "marketplace" && (
+          <MarketplaceHome initialProducts={initialProducts} />
+        )}
       </main>
 
       {/* Floating 1Fi Bottom Navigation */}

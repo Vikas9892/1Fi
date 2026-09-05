@@ -11,9 +11,14 @@ import { EmptyState } from "../common/EmptyState";
 import { ErrorState } from "../common/ErrorState";
 import { LimitSimulatorBar } from "../common/LimitSimulatorBar";
 import { DEFAULT_MOCK_LIMIT } from "@/modules/affordability/limit";
+import { Product } from "@/modules/catalog/types";
 import { Smartphone } from "lucide-react";
 
-export function MarketplaceHome() {
+interface MarketplaceHomeProps {
+  initialProducts?: Product[];
+}
+
+export function MarketplaceHome({ initialProducts = [] }: MarketplaceHomeProps) {
   const brands = getAllBrands();
   const {
     products,
@@ -24,7 +29,7 @@ export function MarketplaceHome() {
     setSelectedBrand,
     setSearchQuery,
     refetch,
-  } = useProducts();
+  } = useProducts(initialProducts);
 
   const [simulatedLimit, setSimulatedLimit] = useState<number>(DEFAULT_MOCK_LIMIT);
 

@@ -23,13 +23,20 @@ interface UseProductDetailResult {
   refetch: () => Promise<void>;
 }
 
-export function useProductDetail(slug: string): UseProductDetailResult {
-  const [product, setProduct] = useState<Product | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+export function useProductDetail(
+  slug: string,
+  initialProduct?: Product | null
+): UseProductDetailResult {
+  const [product, setProduct] = useState<Product | null>(initialProduct || null);
+  const [isLoading, setIsLoading] = useState<boolean>(!initialProduct);
   const [error, setError] = useState<string | null>(null);
 
-  const [selectedStorage, setSelectedStorage] = useState<string>("");
-  const [selectedColor, setSelectedColor] = useState<string>("");
+  const [selectedStorage, setSelectedStorage] = useState<string>(
+    initialProduct?.variants[0]?.storage || ""
+  );
+  const [selectedColor, setSelectedColor] = useState<string>(
+    initialProduct?.variants[0]?.color || ""
+  );
   const [selectedPlanId, setSelectedPlanId] = useState<string>("");
 
   const loadProduct = useCallback(async () => {
@@ -53,8 +60,10 @@ export function useProductDetail(slug: string): UseProductDetailResult {
   }, [slug]);
 
   useEffect(() => {
-    loadProduct();
-  }, [loadProduct]);
+    if (!initialProduct) {
+      loadProduct();
+    }
+  }, [loadProduct, initialProduct]);
 
   // Extract distinct storages
   const availableStorages = useMemo(() => {

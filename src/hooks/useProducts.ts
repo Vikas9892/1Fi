@@ -15,9 +15,12 @@ interface UseProductsResult {
   refetch: () => Promise<void>;
 }
 
-export function useProducts(initialBrand = "All"): UseProductsResult {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+export function useProducts(
+  initialProducts: Product[] = [],
+  initialBrand = "All"
+): UseProductsResult {
+  const [products, setProducts] = useState<Product[]>(initialProducts);
+  const [isLoading, setIsLoading] = useState<boolean>(initialProducts.length === 0);
   const [error, setError] = useState<string | null>(null);
   const [selectedBrand, setSelectedBrand] = useState<string>(initialBrand);
   const [searchQuery, setSearchQuery] = useState<string>("");
