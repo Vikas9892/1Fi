@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
+import { ProductImage } from "@/components/common/ProductImage";
 
 interface ProductGalleryProps {
   images: string[];
@@ -21,21 +21,19 @@ export function ProductGallery({
   return (
     <div className="flex flex-col gap-3">
       {/* Main image viewer */}
-      <div className="relative flex h-72 w-full items-center justify-center rounded-2xl bg-[#fafafa] p-4 border border-zinc-100 overflow-hidden">
+      <div className="relative flex h-80 sm:h-96 w-full items-center justify-center rounded-2xl bg-[#fafafa] p-6 border border-zinc-100 overflow-hidden">
         {badge && (
-          <span className="absolute left-3 top-3 z-10 rounded-full bg-[#712CDC] px-2.5 py-0.5 text-[11px] font-bold text-white shadow-xs">
+          <span className="absolute left-3 top-3 z-10 rounded-full bg-[#712CDC] px-3 py-1 text-xs font-bold text-white shadow-xs">
             {badge}
           </span>
         )}
 
-        <div className="relative h-56 w-56 transition-all duration-300">
-          <Image
+        <div className="relative h-64 w-64 sm:h-80 sm:w-80 transition-all duration-300">
+          <ProductImage
             src={activeImage}
             alt={`${productName} view ${selectedIndex + 1}`}
-            fill
-            priority
-            sizes="(max-width: 500px) 300px, 400px"
-            className="object-contain"
+            sizes="(max-width: 640px) 280px, (max-width: 1024px) 360px, 450px"
+            priority={true}
           />
         </div>
       </div>
@@ -43,7 +41,7 @@ export function ProductGallery({
       {/* Thumbnails */}
       {images.length > 1 && (
         <div
-          className="flex items-center justify-center gap-2 overflow-x-auto no-scrollbar py-1"
+          className="flex items-center justify-center gap-2.5 overflow-x-auto no-scrollbar py-1"
           role="tablist"
           aria-label="Product thumbnail images"
         >
@@ -56,21 +54,17 @@ export function ProductGallery({
                 role="tab"
                 aria-selected={isSelected}
                 onClick={() => setSelectedIndex(idx)}
-                className={`relative h-14 w-14 rounded-xl border p-1 transition-all bg-white cursor-pointer ${
+                className={`relative h-16 w-16 rounded-xl border p-1.5 transition-all bg-white cursor-pointer ${
                   isSelected
-                    ? "border-[#712CDC] ring-2 ring-[#712CDC]/20 shadow-xs"
+                    ? "border-[#712CDC] ring-2 ring-[#712CDC]/25 shadow-xs"
                     : "border-zinc-200 opacity-70 hover:opacity-100"
                 }`}
               >
-                <div className="relative h-full w-full">
-                  <Image
-                    src={img}
-                    alt={`Thumbnail ${idx + 1}`}
-                    fill
-                    sizes="56px"
-                    className="object-contain"
-                  />
-                </div>
+                <ProductImage
+                  src={img}
+                  alt={`Thumbnail ${idx + 1}`}
+                  sizes="64px"
+                />
               </button>
             );
           })}

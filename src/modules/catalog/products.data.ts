@@ -12,12 +12,10 @@ export const PRODUCTS: Product[] = [
     badge: "0% EMI",
     isNew: true,
     isPopular: true,
-    thumbnail:
-      "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-pro-natural-titanium-select?wid=600&hei=600&fmt=png-alpha",
+    thumbnail: "/products/iphone-16-pro.webp",
     images: [
-      "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-pro-natural-titanium-select?wid=600&hei=600&fmt=png-alpha",
-      "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-pro-desert-titanium-select?wid=600&hei=600&fmt=png-alpha",
-      "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-pro-black-titanium-select?wid=600&hei=600&fmt=png-alpha",
+      "/products/iphone-16-pro.webp",
+      "/products/iphone-16.webp",
     ],
     partnerLender: "Tata Capital Financial Services",
     keyFeatures: [
@@ -108,12 +106,10 @@ export const PRODUCTS: Product[] = [
     badge: "Bestseller",
     isNew: true,
     isPopular: true,
-    thumbnail:
-      "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-ultramarine-select?wid=600&hei=600&fmt=png-alpha",
+    thumbnail: "/products/iphone-16.webp",
     images: [
-      "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-ultramarine-select?wid=600&hei=600&fmt=png-alpha",
-      "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-teal-select?wid=600&hei=600&fmt=png-alpha",
-      "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-pink-select?wid=600&hei=600&fmt=png-alpha",
+      "/products/iphone-16.webp",
+      "/products/iphone-16-pro.webp",
     ],
     partnerLender: "Bajaj Finserv Limited",
     keyFeatures: [
@@ -184,11 +180,10 @@ export const PRODUCTS: Product[] = [
     badge: "0% EMI",
     isNew: false,
     isPopular: true,
-    thumbnail:
-      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=600&auto=format&fit=crop&q=80",
+    thumbnail: "/products/galaxy-s24-ultra.webp",
     images: [
-      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=600&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=600&auto=format&fit=crop&q=80",
+      "/products/galaxy-s24-ultra.webp",
+      "/products/galaxy-s24.webp",
     ],
     partnerLender: "Tata Capital Financial Services",
     keyFeatures: [
@@ -259,11 +254,10 @@ export const PRODUCTS: Product[] = [
     badge: "Trending",
     isNew: false,
     isPopular: false,
-    thumbnail:
-      "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=600&auto=format&fit=crop&q=80",
+    thumbnail: "/products/galaxy-s24.webp",
     images: [
-      "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=600&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&auto=format&fit=crop&q=80",
+      "/products/galaxy-s24.webp",
+      "/products/galaxy-s24-ultra.webp",
     ],
     partnerLender: "DSP Finance Private Limited",
     keyFeatures: [
@@ -324,11 +318,10 @@ export const PRODUCTS: Product[] = [
     badge: "0% EMI",
     isNew: true,
     isPopular: true,
-    thumbnail:
-      "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=600&auto=format&fit=crop&q=80",
+    thumbnail: "/products/pixel-9-pro.webp",
     images: [
-      "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=600&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=600&auto=format&fit=crop&q=80",
+      "/products/pixel-9-pro.webp",
+      "/products/pixel-9.webp",
     ],
     partnerLender: "Tata Capital Financial Services",
     keyFeatures: [
@@ -399,10 +392,10 @@ export const PRODUCTS: Product[] = [
     badge: "New Launch",
     isNew: true,
     isPopular: false,
-    thumbnail:
-      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&auto=format&fit=crop&q=80",
+    thumbnail: "/products/pixel-9.webp",
     images: [
-      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&auto=format&fit=crop&q=80",
+      "/products/pixel-9.webp",
+      "/products/pixel-9-pro.webp",
     ],
     partnerLender: "Bajaj Finserv Limited",
     keyFeatures: [
@@ -463,10 +456,10 @@ export const PRODUCTS: Product[] = [
     badge: "0% EMI",
     isNew: false,
     isPopular: true,
-    thumbnail:
-      "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=600&auto=format&fit=crop&q=80",
+    thumbnail: "/products/oneplus-12.webp",
     images: [
-      "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=600&auto=format&fit=crop&q=80",
+      "/products/oneplus-12.webp",
+      "/products/galaxy-s24-ultra.webp",
     ],
     partnerLender: "Tata Capital Financial Services",
     keyFeatures: [

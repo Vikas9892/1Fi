@@ -17,7 +17,7 @@ import { ErrorState } from "@/components/common/ErrorState";
 import { useProductDetail } from "@/hooks/useProductDetail";
 import { evaluateAffordability, DEFAULT_MOCK_LIMIT } from "@/modules/affordability/limit";
 import { formatINR } from "@/modules/emi/calculator";
-import { ChevronLeft, Share2, Tag } from "lucide-react";
+import { ChevronLeft, Share2, Tag, ArrowRight, Lock } from "lucide-react";
 
 interface ProductDetailViewProps {
   slug: string;
@@ -133,99 +133,161 @@ export function ProductDetailView({
         </button>
       </header>
 
-      {/* Main scrollable body */}
-      <main className="flex flex-col gap-4 px-4 py-3 pb-32">
-        {/* Image gallery */}
-        <ProductGallery
-          images={product.images}
-          productName={product.name}
-          badge={product.badge}
-        />
+      {/* Main Responsive Grid Layout */}
+      <main className="py-4 pb-32 lg:pb-12">
+        <div className="lg:grid lg:grid-cols-12 lg:gap-8 items-start">
+          {/* Left Column: Product Gallery & Desktop Specs */}
+          <div className="lg:col-span-5 flex flex-col gap-6 lg:sticky lg:top-24">
+            <ProductGallery
+              images={product.images}
+              productName={product.name}
+              badge={product.badge}
+            />
 
-        {/* Title, Brand, Tagline */}
-        <div>
-          <span className="text-xs font-bold uppercase tracking-wider text-[#712CDC]">
-            {product.brand}
-          </span>
-          <h1 className="text-xl font-extrabold text-zinc-900 tracking-tight leading-snug">
-            {product.name}
-          </h1>
-          <p className="mt-1 text-xs text-zinc-500 leading-relaxed">
-            {product.tagline}
-          </p>
-        </div>
+            {/* Desktop Specifications & Highlights */}
+            <div className="hidden lg:block">
+              <ProductSpecs specs={product.specs} keyFeatures={product.keyFeatures} />
+            </div>
 
-        {/* Pricing Card with 1Fi pattern */}
-        <div className="rounded-2xl border border-zinc-200/90 bg-white p-4 shadow-xs">
-          <div className="flex items-baseline gap-2">
-            <span className="text-2xl font-black text-zinc-900">
-              {formatINR(sellingPrice)}
-            </span>
-            {mrp > sellingPrice && (
-              <span className="text-sm text-zinc-400 line-through font-medium">
-                {formatINR(mrp)}
-              </span>
-            )}
-            {discountPercent > 0 && (
-              <span className="rounded-md bg-emerald-50 px-2 py-0.5 text-xs font-bold text-emerald-700">
-                Save {discountPercent}%
-              </span>
-            )}
+            {/* Desktop Regulated Lender Trust Info */}
+            <div className="hidden lg:block">
+              <TrustMessaging partnerLender={product.partnerLender} />
+            </div>
           </div>
 
-          {/* Price after cashback highlight */}
-          {cashback > 0 && (
-            <div className="mt-2.5 flex items-center justify-between rounded-xl bg-purple-50/70 border border-purple-100 px-3 py-2 text-xs">
-              <div className="flex items-center gap-1.5 text-purple-900 font-semibold">
-                <Tag className="h-3.5 w-3.5 text-[#712CDC]" />
-                <span>Effective Price after Cashback:</span>
-              </div>
-              <span className="font-extrabold text-[#712CDC]">
-                {formatINR(priceAfterCashback)}
+          {/* Right Column: Title, Pricing, Variants, Limit, EMI Plans & Checkout */}
+          <div className="lg:col-span-7 flex flex-col gap-4 mt-4 lg:mt-0">
+            {/* Title, Brand, Tagline */}
+            <div>
+              <span className="text-xs font-bold uppercase tracking-wider text-[#712CDC]">
+                {product.brand}
               </span>
+              <h1 className="text-xl sm:text-2xl font-extrabold text-zinc-900 tracking-tight leading-snug">
+                {product.name}
+              </h1>
+              <p className="mt-1 text-xs sm:text-sm text-zinc-500 leading-relaxed">
+                {product.tagline}
+              </p>
             </div>
-          )}
+
+            {/* Pricing Card with 1Fi pattern */}
+            <div className="rounded-2xl border border-zinc-200/90 bg-white p-4 shadow-xs">
+              <div className="flex items-baseline gap-2">
+                <span className="text-2xl font-black text-zinc-900">
+                  {formatINR(sellingPrice)}
+                </span>
+                {mrp > sellingPrice && (
+                  <span className="text-sm text-zinc-400 line-through font-medium">
+                    {formatINR(mrp)}
+                  </span>
+                )}
+                {discountPercent > 0 && (
+                  <span className="rounded-md bg-emerald-50 px-2 py-0.5 text-xs font-bold text-emerald-700">
+                    Save {discountPercent}%
+                  </span>
+                )}
+              </div>
+
+              {/* Price after cashback highlight */}
+              {cashback > 0 && (
+                <div className="mt-2.5 flex items-center justify-between rounded-xl bg-purple-50/70 border border-purple-100 px-3 py-2 text-xs">
+                  <div className="flex items-center gap-1.5 text-purple-900 font-semibold">
+                    <Tag className="h-3.5 w-3.5 text-[#712CDC]" />
+                    <span>Effective Price after Cashback:</span>
+                  </div>
+                  <span className="font-extrabold text-[#712CDC]">
+                    {formatINR(priceAfterCashback)}
+                  </span>
+                </div>
+              )}
+            </div>
+
+            {/* Variant Selectors (Functional Storage & Color switches) */}
+            <VariantSelector
+              availableStorages={availableStorages}
+              selectedStorage={selectedStorage}
+              onSelectStorage={setSelectedStorage}
+              availableColors={availableColors}
+              selectedColor={selectedColor}
+              onSelectColor={setSelectedColor}
+            />
+
+            {/* Limit Simulator Bar */}
+            <LimitSimulatorBar
+              availableLimit={availableLimit}
+              onLimitChange={setAvailableLimit}
+            />
+
+            {/* Dynamic Affordability & Limit Status */}
+            <LimitStatus evaluation={evaluation} />
+
+            {/* EMI Plan Selector (3, 6, 12, 24 months) */}
+            <EmiPlanSelector
+              plans={emiPlans}
+              selectedPlan={selectedEmiPlan}
+              onSelectPlan={setSelectedEmiPlan}
+            />
+
+            {/* Desktop Direct Checkout Action Card (Visible on lg+) */}
+            {selectedEmiPlan && (
+              <div className="hidden lg:flex items-center justify-between rounded-2xl border border-purple-100 bg-[#fbf9ff] p-4 shadow-xs mt-2">
+                <div>
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-xl font-extrabold text-[#712CDC]">
+                      {formatINR(selectedEmiPlan.monthlyEmi)}
+                    </span>
+                    <span className="text-xs font-medium text-zinc-600">
+                      /mo for {selectedEmiPlan.tenureMonths} months
+                    </span>
+                  </div>
+                  <span className="text-xs text-zinc-400 font-medium">
+                    Total: {formatINR(selectedEmiPlan.totalPayable)} •{" "}
+                    {selectedEmiPlan.isZeroCost ? "0% Interest" : "Easy EMI"}
+                  </span>
+                </div>
+
+                <button
+                  type="button"
+                  disabled={!evaluation.isEligible}
+                  onClick={handleProceedToReview}
+                  className={`flex items-center gap-2 rounded-xl py-3 px-6 text-xs font-bold transition-all duration-200 cursor-pointer ${
+                    evaluation.isEligible
+                      ? "bg-[#712CDC] text-white shadow-md shadow-[#712CDC]/25 hover:bg-[#5e24b7] active:scale-95"
+                      : "bg-zinc-200 text-zinc-400 cursor-not-allowed shadow-none"
+                  }`}
+                >
+                  {evaluation.isEligible ? (
+                    <>
+                      <span>Review EMI Plan</span>
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </>
+                  ) : (
+                    <>
+                      <Lock className="h-3.5 w-3.5" />
+                      <span>Limit Exceeded</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            )}
+
+            {/* Mobile-only Trust Messaging & Specifications */}
+            <div className="lg:hidden flex flex-col gap-4">
+              <TrustMessaging partnerLender={product.partnerLender} />
+              <ProductSpecs specs={product.specs} keyFeatures={product.keyFeatures} />
+            </div>
+          </div>
         </div>
-
-        {/* Variant Selectors (Functional Storage & Color switches) */}
-        <VariantSelector
-          availableStorages={availableStorages}
-          selectedStorage={selectedStorage}
-          onSelectStorage={setSelectedStorage}
-          availableColors={availableColors}
-          selectedColor={selectedColor}
-          onSelectColor={setSelectedColor}
-        />
-
-        {/* Mock Limit Simulator Bar */}
-        <LimitSimulatorBar
-          availableLimit={availableLimit}
-          onLimitChange={setAvailableLimit}
-        />
-
-        {/* Dynamic Affordability & Limit Status */}
-        <LimitStatus evaluation={evaluation} />
-
-        {/* EMI Plan Selector (3, 6, 12, 24 months) */}
-        <EmiPlanSelector
-          plans={emiPlans}
-          selectedPlan={selectedEmiPlan}
-          onSelectPlan={setSelectedEmiPlan}
-        />
-
-        {/* Trust Messaging & Partner Distinction */}
-        <TrustMessaging partnerLender={product.partnerLender} />
-
-        {/* Specifications & Highlights */}
-        <ProductSpecs specs={product.specs} keyFeatures={product.keyFeatures} />
       </main>
 
-      {/* Sticky Mobile Checkout Bar */}
-      <StickyCheckoutBar
-        selectedPlan={selectedEmiPlan}
-        isEligible={evaluation.isEligible}
-        onProceed={handleProceedToReview}
-      />
+      {/* Sticky Mobile Checkout Bar (Hidden on lg+) */}
+      <div className="lg:hidden">
+        <StickyCheckoutBar
+          selectedPlan={selectedEmiPlan}
+          isEligible={evaluation.isEligible}
+          onProceed={handleProceedToReview}
+        />
+      </div>
     </MobileContainer>
   );
 }

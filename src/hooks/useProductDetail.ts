@@ -60,10 +60,33 @@ export function useProductDetail(
   }, [slug]);
 
   useEffect(() => {
-    if (!initialProduct) {
-      loadProduct();
-    }
-  }, [loadProduct, initialProduct]);
+    if (initialProduct) return;
+
+    let isMounted = true;
+    apiClient
+      .getProductBySlug(slug)
+      .then((data) => {
+        if (!isMounted) return;
+        setProduct(data);
+        if (data.variants.length > 0) {
+          setSelectedStorage(data.variants[0].storage);
+          setSelectedColor(data.variants[0].color);
+        }
+      })
+      .catch((err) => {
+        if (!isMounted) return;
+        setError(
+          err instanceof Error ? err.message : "Unable to load product details."
+        );
+      })
+      .finally(() => {
+        if (isMounted) setIsLoading(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [slug, initialProduct]);
 
   // Extract distinct storages
   const availableStorages = useMemo(() => {

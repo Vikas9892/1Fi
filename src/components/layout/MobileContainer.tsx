@@ -1,18 +1,24 @@
 import React from "react";
+import { AppShell } from "./AppShell";
 
 interface MobileContainerProps {
   children: React.ReactNode;
   className?: string;
+  showDesktopNav?: boolean;
 }
 
-export function MobileContainer({ children, className = "" }: MobileContainerProps) {
+/**
+ * Responsive App Frame
+ * Adapts to full desktop/tablet width while preserving 1Fi's mobile design on mobile screens.
+ */
+export function MobileContainer({
+  children,
+  className = "",
+  showDesktopNav = true,
+}: MobileContainerProps) {
   return (
-    <div className="min-h-screen bg-[#f3f4f6] flex justify-center">
-      <div
-        className={`w-full max-w-[500px] min-h-screen bg-white shadow-xl flex flex-col relative border-x border-zinc-100 ${className}`}
-      >
-        {children}
-      </div>
-    </div>
+    <AppShell className={className} showDesktopNav={showDesktopNav}>
+      {children}
+    </AppShell>
   );
 }

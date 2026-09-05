@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { MobileContainer } from "@/components/layout/MobileContainer";
-import { MobileNav } from "@/components/layout/MobileNav";
 import { ShopBanner } from "@/components/shop/ShopBanner";
 import { ShopTabs, ShopTabKey } from "@/components/shop/ShopTabs";
 import { TopBrandsTab } from "@/components/shop/TopBrandsTab";
@@ -36,9 +35,6 @@ export default function ShopPage() {
           <MarketplaceHome initialProducts={initialProducts} />
         )}
       </main>
-
-      {/* Floating 1Fi Bottom Navigation */}
-      <MobileNav />
     </MobileContainer>
   );
 }

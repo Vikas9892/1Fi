@@ -1,6 +1,6 @@
 # 1Fi Marketplace — Software Development Engineer Intern Assessment
 
-> **1Fi Marketplace Extension inside the Existing 1Fi Mobile Experience**  
+> **1Fi Marketplace Extension inside the Existing 1Fi Platform**  
 > Built by **vikas9892** (`vikast4843@gmail.com`)
 
 ---
@@ -9,13 +9,20 @@
 
 **1Fi** is fundamentally different from a conventional e-commerce platform. Its core value proposition is enabling investors to leverage their existing mutual fund holdings as collateral (Loan Against Mutual Funds - LAMF) to purchase products with **0% / No-Cost EMI** without liquidating their investments or sacrificing compounding returns.
 
-This submission is designed strictly as a **product extension**, not a redesign or generic e-commerce template:
-1. **Existing Shop Page Preservation**: Preserves 1Fi's exact mobile layout, `#712CDC` brand identity, hero banner, bottom navigation, and introduces the required **3-tab structure**:
-   - **Top Brands**: Blank/coming-soon placeholder state.
-   - **Nearby Stores**: Blank/coming-soon placeholder state.
-   - **1Fi Marketplace**: Full end-to-end catalog, variant switcher, pure financial EMI calculation engine, real-time limit/affordability verification, and plan review.
-2. **Fintech UX & Mutual Fund Transparency**: Every screen reinforces the financial relationship: price after cashback, transparent EMI tenures (3, 6, 12, 24 months), mutual fund lien pledge through SEBI-registered RTAs (CAMS, KFintech, MFCentral), and clear regulatory distinction between 1Fi (point-of-sale checkout tech) and regulated NBFC lending partners (Tata Capital, Bajaj Finserv, DSP Finance).
-3. **Pure Financial Calculations**: Financial calculations (0% EMI, reducing-balance amortized APR, interest breakdown, and affordability shortfall) are implemented in pure, typed, independently testable modules with zero JSX or React dependencies.
+This submission is designed strictly as a **production-grade product extension**, not a redesign or generic e-commerce template:
+1. **Existing Shop Page Preservation**: Preserves 1Fi's `#712CDC` brand identity, hero banner, navigation, and introduces the required **3-tab structure**:
+   - **Top Brands**: Blank placeholder state.
+   - **Nearby Stores**: Blank placeholder state.
+   - **1Fi Marketplace**: Full end-to-end catalog, storage & color variant switcher, pure financial EMI calculation engine, real-time limit/affordability verification, and plan review.
+2. **Responsive Application Architecture**:
+   - **Mobile (`360px–430px`)**: Compact mobile-first experience with floating 5-tab bottom navigation (`Home`, `Shop`, `EMI Dues`, `Limit`, `Profile`), sticky bottom checkout bar, and responsive touch controls.
+   - **Tablet (`768px`)**: Intelligent 2–3 column product grid and balanced padding.
+   - **Desktop (`1024px–1440px+`)**: Full responsive application shell (`max-w-6xl`) with top navigation header, trust indicators, 4-column product grid, two-column desktop PDP (sticky left gallery & specs; right price, variant & EMI controls), and two-column Plan Review layout.
+3. **Robust Asset Architecture**:
+   - Every product in the catalog has an optimized local asset in `public/products/` (`iphone-16-pro.webp`, `iphone-16.webp`, `galaxy-s24-ultra.webp`, `galaxy-s24.webp`, `pixel-9-pro.webp`, `pixel-9.webp`, `oneplus-12.webp`).
+   - Integrated `ProductImage` component provides branded SVG fallback, skeleton loading, and zero layout shift.
+4. **Fintech UX & Mutual Fund Transparency**: Every screen reinforces the financial relationship: price after cashback, transparent EMI tenures (3, 6, 12, 24 months), mutual fund lien pledge through SEBI-registered RTAs (CAMS, KFintech, MFCentral), and clear regulatory distinction between 1Fi (point-of-sale checkout tech) and regulated NBFC lending partners (Tata Capital, Bajaj Finserv, DSP Finance).
+5. **Pure Financial Calculations**: Financial calculations (0% EMI, reducing-balance amortized APR, interest breakdown, and affordability shortfall) are implemented in pure, typed, independently testable modules with zero JSX or React dependencies.
 
 ---
 
@@ -23,15 +30,16 @@ This submission is designed strictly as a **product extension**, not a redesign 
 
 ```mermaid
 graph TD
-    Shop[1Fi Shop /shop] --> TopBrands[Top Brands - Blank State]
+    Home[1Fi Home /] --> Shop[1Fi Shop /shop]
+    Shop --> TopBrands[Top Brands - Blank State]
     Shop --> NearbyStores[Nearby Stores - Blank State]
     Shop --> Marketplace[1Fi Marketplace Catalog]
 
     Marketplace --> SearchFilter[Debounced Search & Brand Filters]
-    Marketplace --> ProductGrid[Product Grid & Dynamic Starting EMI]
+    Marketplace --> ProductGrid[Responsive 1-4 Column Product Grid]
     ProductGrid --> PDP[Product Detail Page /shop/slug]
 
-    PDP --> Gallery[Responsive Image Gallery & Thumbnails]
+    PDP --> Gallery[Image Gallery & Thumbnails]
     PDP --> VariantSelector[Storage & Color Variant Selector]
     PDP --> EmiEngine[Pure EMI Plan Engine 3, 6, 12, 24 mo]
     PDP --> AffordabilityCheck[Live Affordability & Limit Status]
@@ -49,8 +57,12 @@ graph TD
 ├── src/
 │   ├── app/
 │   │   ├── layout.tsx                     # Root layout with theme #712CDC, viewport, Geist font
-│   │   ├── page.tsx                       # Seamless redirect to /shop
-│   │   ├── globals.css                    # Design tokens, custom scrollbar utilities, glassmorphism
+│   │   ├── page.tsx                       # Dedicated 1Fi Home dashboard (fixes Home button)
+│   │   ├── not-found.tsx                  # Custom branded 404 page with return-to-shop action
+│   │   ├── emi-dues/page.tsx              # Working placeholder for EMI Dues tab
+│   │   ├── limit/page.tsx                 # Working placeholder for Limit tab
+│   │   ├── profile/page.tsx               # Working placeholder for Profile tab
+│   │   ├── globals.css                    # Design tokens, custom scrollbars, glassmorphism
 │   │   ├── shop/
 │   │   │   ├── page.tsx                   # Existing Shop page with 3-tab layout
 │   │   │   ├── [slug]/
@@ -63,38 +75,40 @@ graph TD
 │   │       │   └── [slug]/
 │   │       │       └── route.ts           # GET /api/products/[slug] with 404 handling
 │   │       └── emi-plans/
-│   │           └── route.ts               # GET /api/emi-plans?amount=...
+│   │           └── route.ts               # GET /api/emi-plans?price=...
 │   ├── components/
 │   │   ├── layout/
-│   │   │   ├── MobileContainer.tsx        # Mobile app frame (max-w-[500px] centered)
-│   │   │   └── MobileNav.tsx              # 5-tab floating bottom navigation
+│   │   │   ├── AppShell.tsx               # Responsive app shell (desktop header/footer, mobile bottom nav)
+│   │   │   ├── MobileContainer.tsx        # Responsive frame adapter
+│   │   │   └── MobileNav.tsx              # 5-tab floating bottom navigation (< md)
 │   │   ├── shop/
-│   │   │   ├── ShopBanner.tsx             # 1Fi hero banner "Shop today, Pay later using Mutual funds"
+│   │   │   ├── ShopBanner.tsx             # 1Fi hero banner with trust badges
 │   │   │   ├── ShopTabs.tsx               # 3-segment pill tab switcher
 │   │   │   ├── TopBrandsTab.tsx           # Top Brands placeholder
 │   │   │   ├── NearbyStoresTab.tsx        # Nearby Stores placeholder
-│   │   │   ├── MarketplaceHome.tsx        # Marketplace catalog root with instant hydration
+│   │   │   ├── MarketplaceHome.tsx        # Responsive 1-4 col catalog root
 │   │   │   ├── SearchBar.tsx              # Search bar with instant clear
 │   │   │   ├── BrandFilters.tsx           # Horizontal pill filters (All, Apple, Samsung, Google, OnePlus)
-│   │   │   ├── ProductCard.tsx            # Card with badge, image, pricing, starting EMI
-│   │   │   └── ProductSkeleton.tsx        # Pulse skeleton loading UI
+│   │   │   ├── ProductCard.tsx            # Card with badge, local asset image, pricing, starting EMI
+│   │   │   └── ProductSkeleton.tsx        # Responsive skeleton loading UI
 │   │   ├── pdp/
-│   │   │   ├── ProductDetailView.tsx      # Interactive client view for PDP
-│   │   │   ├── ProductGallery.tsx         # Image carousel with selectable thumbnails
+│   │   │   ├── ProductDetailView.tsx      # Responsive two-column desktop PDP & stacked mobile PDP
+│   │   │   ├── ProductGallery.tsx         # Image gallery with selectable thumbnails
 │   │   │   ├── VariantSelector.tsx        # Reactive storage buttons & color swatches
 │   │   │   ├── EmiPlanSelector.tsx        # EMI plan options (3, 6, 12, 24 months)
 │   │   │   ├── EmiPlanCard.tsx            # Transparent financial breakdown card
 │   │   │   ├── LimitStatus.tsx            # Affordability progress bar & shortfall alert
 │   │   │   ├── ProductSpecs.tsx           # Technical specs table & key highlights
 │   │   │   ├── TrustMessaging.tsx         # Collateral pledge disclosure & NBFC lender notice
-│   │   │   └── StickyCheckoutBar.tsx      # Mobile sticky bottom CTA with live plan summary
+│   │   │   └── StickyCheckoutBar.tsx      # Mobile sticky bottom CTA (hidden on desktop)
 │   │   ├── review/
-│   │   │   ├── PlanReviewView.tsx         # Comprehensive order & financial summary
-│   │   │   └── PledgeNextStepModal.tsx    # 4-step mutual fund pledge interactive walkthrough
+│   │   │   ├── PlanReviewView.tsx         # Responsive two-column order & financial confirmation
+│   │   │   └── PledgeNextStepModal.tsx    # 4-step mutual fund pledge interactive walkthrough (Escape & focus support)
 │   │   └── common/
+│   │       ├── ProductImage.tsx           # Robust Next/Image wrapper with branded SVG fallback
 │   │       ├── ErrorState.tsx             # Reusable error message with retry action
 │   │       ├── EmptyState.tsx             # Search/filter empty state with reset button
-│   │       └── LimitSimulatorBar.tsx      # Evaluator limit toggle bar (₹50K vs ₹1L vs ₹1.75L)
+│   │       └── LimitSimulatorBar.tsx      # Customer-facing purchase limit with subtle assessor test drawer
 │   ├── modules/
 │   │   ├── catalog/
 │   │   │   ├── types.ts                   # Product, Variant, Specs, Brand domain models
@@ -111,8 +125,9 @@ graph TD
 │   │   └── api.ts                         # Client-side API abstraction decoupling UI from HTTP
 │   └── hooks/
 │       ├── useProducts.ts                 # Product catalog hook with debounced search
-│       ├── useProductDetail.ts            # PDP hook managing variant selection & EMI updates
-│       └── useAffordability.ts            # Affordability and limit state hook
+│       └── useProductDetail.ts            # PDP hook managing variant selection & EMI updates
+├── public/
+│   └── products/                          # High-resolution local WebP device assets & SVG fallback
 └── tests/
     ├── emi.test.ts                        # Vitest suite for pure EMI formulas & rounding
     ├── affordability.test.ts              # Vitest suite for limit shortfall & eligibility logic
@@ -183,38 +198,34 @@ Rather than arbitrarily tagging a plan as "Best", 1Fi highlights the **6-month 0
 
 ## Affordability & Limit Experience
 
-To showcase product thinking without simulating real credit underwriting:
-- **Mock Available 1Fi Limit**: Defaults to **₹1,00,000** (simulating portfolio-backed credit limit).
-- **Evaluator Limit Simulator Bar**: Includes immediate buttons (**₹50K**, **₹1L**, **₹1.75L**) so reviewers can test both eligible and shortfall flows in 1 click.
+To showcase product thinking without confusing customers or faking underwriting:
+- **Customer-Facing Experience**: Presented as *"Available Purchase Limit ₹1,00,000"* with instant 0% EMI eligibility.
+- **Subtle Assessor Test Drawer**: Evaluators can click *"Test Limit"* to toggle between **₹50K (Shortfall)**, **₹1L (Default)**, and **₹1.75L (High)** to instantly verify both eligible and ineligible workflows.
 - **Shortfall Calculation**:
   $$\text{Shortfall} = \max(0, \text{Purchase Amount} - \text{Available Limit})$$
-- **Eligibility Gating**: If purchase exceeds the limit, the primary CTA is locked with `"Limit Exceeded"` and clearly states the required additional limit.
+- **Eligibility Gating**: If purchase exceeds the limit, the primary CTA is locked with `"Limit Exceeded"` and displays the required additional limit.
 
 ---
 
-## State Management Architecture
+## Navigation Architecture
 
-A strict separation between **Server State** and **UI State** is maintained:
-- **Server State**: Product catalog, product detail, and pre-computed EMI plans are fetched via `apiClient` or server components.
-- **UI State**: Selected storage, selected color, selected EMI tenure, and simulated limit are managed locally in React hooks (`useProducts`, `useProductDetail`, `useAffordability`). No bloated global state or Redux is introduced for simple domain interactions.
-
----
-
-## Loading, Error, and Empty States
-
-1. **Skeleton UI**: `ProductSkeletonGrid` provides pulsing cards matching exact card dimensions.
-2. **Error State with Retry**: `ErrorState` provides friendly messaging, icon, and a `Retry` CTA.
-3. **Empty State**: `EmptyState` explains that no matching smartphones were found and offers a `"Clear Filters"` button that resets search and brand selections.
+- **Home (`/`)**: High-fidelity dashboard highlighting mutual fund portfolio value, available purchase limit, and quick exploration CTA.
+- **Shop (`/shop`)**: The core assessment screen with 3 tabs (*Top Brands*, *Nearby Stores*, *1Fi Marketplace*).
+- **EMI Dues (`/emi-dues`)**: Working placeholder with portfolio dues overview.
+- **Limit (`/limit`)**: Working placeholder explaining LAMF credit line mechanics.
+- **Profile (`/profile`)**: Working placeholder with connected mutual fund accounts.
+- **404 Route (`/shop/nonexistent-product`)**: Custom branded 404 page with a direct button back to 1Fi Marketplace.
 
 ---
 
-## Accessibility & Mobile-First UX
+## Accessibility & Responsive UI
 
-- Designed mobile-first for `360px`, `390px`, `430px`, `768px`, and `1280px+` (centered `max-w-[500px]` mobile view on desktop).
+- Tested and verified across **360px, 390px, 430px, 768px, 1024px, 1280px, and 1440px+**.
+- Desktop: full application layout (`max-w-6xl`) with top navigation, multi-column grids, and two-column PDP/Review screens.
+- Mobile: compact layout with floating bottom navigation, safe-area insets, and sticky checkout bars.
 - Semantic HTML tags (`<main>`, `<header>`, `<nav>`, `role="tablist"`, `role="tab"`, `role="radiogroup"`, `role="radio"`, `role="dialog"`).
-- Keyboard navigable with `tabIndex={0}` and `Enter`/`Space` handlers on selectable cards.
-- Accessible focus indicators and high color contrast (tested against WCAG AA standards).
-- Swatches include descriptive labels and checkmarks so color is never the sole selection indicator.
+- Keyboard accessible with `tabIndex={0}`, `Enter`/`Space` handlers, and `Escape` key dialog closing.
+- Zero broken images guaranteed by local WebP assets and fallback SVG component.
 
 ---
 
@@ -230,7 +241,7 @@ npm test
 ### Coverage:
 - `tests/emi.test.ts`: 0% EMI division, non-zero compounding reducing balance, processing fees, cashback deduction, 3/6/12/24 month plans, recommendation logic, currency formatting.
 - `tests/affordability.test.ts`: Exact limit, below limit, above limit shortfall calculation, safe 0/negative handling.
-- `tests/catalog.test.ts`: Brand filtering, search keyword matches, 404/undefined slug handling, variant price scaling (higher storage costs more).
+- `tests/catalog.test.ts`: Brand filtering, search keyword matches, 404/undefined slug handling, variant price scaling.
 
 ```
  ✓ tests/catalog.test.ts (8 tests)
@@ -241,13 +252,20 @@ Test Files:  3 passed (3)
 Tests:       27 passed (27)
 ```
 
+### Typecheck & Build:
+```bash
+npx tsc --noEmit   # Exits with code 0
+npx eslint src     # Exits with code 0 (zero errors, zero warnings)
+npm run build      # Creates optimized production build with Turbopack
+```
+
 ---
 
 ## Local Setup & Development
 
 ```bash
 # 1. Clone repository
-git clone <repo-url>
+git clone https://github.com/Vikas9892/1Fi.git
 cd 1Fi
 
 # 2. Install dependencies
@@ -268,22 +286,15 @@ npm run build
 
 ---
 
-## Engineering Trade-offs & Future Production Improvements
-
-1. **Mock API vs Server Actions**: We used standard Next.js API route handlers (`/api/products`, `/api/emi-plans`) with a typed client abstraction (`apiClient`). This allows swapping mock handlers for a real microservice backend with zero UI changes.
-2. **Pre-computed EMI Plans**: While the client recalculates plans instantly on variant selection for zero latency, the API route `/api/emi-plans` also exposes the pure calculation engine over HTTP.
-3. **Future Production Enhancements**:
-   - Webhook integration with CAMS/KFintech for live MF portfolio valuation tracking.
-   - Dynamic pledge allocation slider allowing users to pick which specific mutual fund schemes (equity vs debt) to pledge.
-   - Biometric fingerprint/FaceID pledge authorization on native Capacitor wrappers.
-
----
-
 ## Git Commit Milestone Log
 
 Authorship verified for `vikas9892 <vikast4843@gmail.com>`:
 
 ```
+398a3ce - vikas9892 <vikast4843@gmail.com> : docs: update walkthrough with image stabilization and responsive shell
+b3992b8 - vikas9892 <vikast4843@gmail.com> : feat: add dedicated home, emi dues, limit, and profile pages
+98f121d - vikas9892 <vikast4843@gmail.com> : refactor: elevate limit simulator to production fintech styling with subtle evaluator toggle
+c1be0a1 - vikas9892 <vikast4843@gmail.com> : fix: stabilize marketplace product imagery with local assets and fallback
 893e3ed - vikas9892 <vikast4843@gmail.com> : refactor: optimize ssr rendering with server components and pass hydration props
 b8875a7 - vikas9892 <vikast4843@gmail.com> : test: add comprehensive test suite for emi engine, affordability limits, and catalog models
 ca818ca - vikas9892 <vikast4843@gmail.com> : feat: implement product detail page, variant selection, emi selector, and plan review
