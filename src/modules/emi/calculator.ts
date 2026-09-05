@@ -45,11 +45,14 @@ export function calculateEmi(input: EmiCalculationInput): EmiCalculationResult {
 
   let monthlyEmi: number;
   let totalInterest: number;
+  let totalPayable: number;
 
   if (annualInterestRate <= 0) {
     // 0% No-cost EMI
     monthlyEmi = Math.round(principal / tenureMonths);
     totalInterest = 0;
+    // In 0% No-cost EMI, total paid is exactly the principal plus processing fee
+    totalPayable = principal + processingFee;
   } else {
     // Non-zero interest rate reducing balance amortization
     const monthlyRate = annualInterestRate / 12 / 100;
@@ -59,9 +62,9 @@ export function calculateEmi(input: EmiCalculationInput): EmiCalculationResult {
     
     monthlyEmi = Math.round(unroundedEmi);
     totalInterest = Math.max(0, monthlyEmi * tenureMonths - principal);
+    totalPayable = monthlyEmi * tenureMonths + processingFee;
   }
 
-  const totalPayable = monthlyEmi * tenureMonths + processingFee;
   const effectiveTotalAfterCashback = Math.max(0, totalPayable - cashback);
 
   return {
