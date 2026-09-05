@@ -15,7 +15,7 @@ export const PRODUCTS: Product[] = [
     thumbnail: "/products/iphone-16-pro.jpg",
     images: [
       "/products/iphone-16-pro.jpg",
-      "/products/iphone-16-pro-detail.webp",
+      "/products/iphone-16-pro-alt.jpg",
     ],
     partnerLender: "Tata Capital Financial Services",
     keyFeatures: [
@@ -109,7 +109,7 @@ export const PRODUCTS: Product[] = [
     thumbnail: "/products/iphone-16.jpg",
     images: [
       "/products/iphone-16.jpg",
-      "/products/iphone-16-detail.webp",
+      "/products/iphone-16-alt.jpg",
     ],
     partnerLender: "Bajaj Finserv Limited",
     keyFeatures: [
@@ -183,7 +183,7 @@ export const PRODUCTS: Product[] = [
     thumbnail: "/products/galaxy-s24-ultra.jpg",
     images: [
       "/products/galaxy-s24-ultra.jpg",
-      "/products/galaxy-s24-ultra-detail.webp",
+      "/products/galaxy-s24-ultra-alt.jpg",
     ],
     partnerLender: "Tata Capital Financial Services",
     keyFeatures: [
@@ -257,7 +257,7 @@ export const PRODUCTS: Product[] = [
     thumbnail: "/products/galaxy-s24.jpg",
     images: [
       "/products/galaxy-s24.jpg",
-      "/products/galaxy-s24-detail.webp",
+      "/products/galaxy-s24-alt.jpg",
     ],
     partnerLender: "DSP Finance Private Limited",
     keyFeatures: [
@@ -321,7 +321,7 @@ export const PRODUCTS: Product[] = [
     thumbnail: "/products/pixel-9-pro.jpg",
     images: [
       "/products/pixel-9-pro.jpg",
-      "/products/pixel-9-pro-detail.webp",
+      "/products/pixel-9-pro-alt.jpg",
     ],
     partnerLender: "Tata Capital Financial Services",
     keyFeatures: [
@@ -395,7 +395,7 @@ export const PRODUCTS: Product[] = [
     thumbnail: "/products/pixel-9.jpg",
     images: [
       "/products/pixel-9.jpg",
-      "/products/pixel-9-detail.webp",
+      "/products/pixel-9-alt.jpg",
     ],
     partnerLender: "Bajaj Finserv Limited",
     keyFeatures: [
@@ -459,7 +459,7 @@ export const PRODUCTS: Product[] = [
     thumbnail: "/products/oneplus-12.jpg",
     images: [
       "/products/oneplus-12.jpg",
-      "/products/oneplus-12-detail.webp",
+      "/products/oneplus-12-alt.jpg",
     ],
     partnerLender: "Tata Capital Financial Services",
     keyFeatures: [
