@@ -23,6 +23,13 @@ export const metadata: Metadata = {
   title: "1Fi - Mutual Fund backed EMIs | Marketplace",
   description:
     "India's first LAMF-based shopping platform. Shop smartphones with 0% No-cost EMI backed by your mutual fund portfolio.",
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "32x32" },
+    ],
+    apple: "/apple-icon.png",
+  },
 };
 
 export default function RootLayout({

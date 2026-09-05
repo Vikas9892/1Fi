@@ -15,7 +15,7 @@ export default function ShopPage() {
 
   return (
     <MobileContainer>
-      <main className="flex flex-1 flex-col gap-4 px-4 py-4 pb-28">
+      <main className="flex flex-1 flex-col gap-4 pb-28 md:pb-12">
         {/* 1Fi Shop Hero Banner */}
         <ShopBanner />
 

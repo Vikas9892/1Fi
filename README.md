@@ -17,7 +17,7 @@ This submission is designed strictly as a **production-grade product extension**
 2. **Responsive Application Architecture**:
    - **Mobile (`360px–430px`)**: Compact mobile-first experience with floating 5-tab bottom navigation (`Home`, `Shop`, `EMI Dues`, `Limit`, `Profile`), sticky bottom checkout bar, and responsive touch controls.
    - **Tablet (`768px`)**: Intelligent 2–3 column product grid and balanced padding.
-   - **Desktop (`1024px–1440px+`)**: Full responsive application shell (`max-w-6xl`) with top navigation header, trust indicators, 4-column product grid, two-column desktop PDP (sticky left gallery & specs; right price, variant & EMI controls), and two-column Plan Review layout.
+   - **Desktop (`1024px–1440px+`)**: Full responsive application shell (`max-w-[1440px]`) with top navigation header, trust indicators, 4-column product grid, two-column desktop PDP (sticky left gallery & specs; right price, variant & EMI controls), and two-column Plan Review layout.
 3. **Robust Asset Architecture**:
    - Every product in the catalog has an optimized local asset in `public/products/` (`iphone-16-pro.webp`, `iphone-16.webp`, `galaxy-s24-ultra.webp`, `galaxy-s24.webp`, `pixel-9-pro.webp`, `pixel-9.webp`, `oneplus-12.webp`).
    - Integrated `ProductImage` component provides branded SVG fallback, skeleton loading, and zero layout shift.
@@ -221,7 +221,7 @@ To showcase product thinking without confusing customers or faking underwriting:
 ## Accessibility & Responsive UI
 
 - Tested and verified across **360px, 390px, 430px, 768px, 1024px, 1280px, and 1440px+**.
-- Desktop: full application layout (`max-w-6xl`) with top navigation, multi-column grids, and two-column PDP/Review screens.
+- Desktop: full application layout (`max-w-[1440px]`) with top navigation, multi-column grids, and two-column PDP/Review screens.
 - Mobile: compact layout with floating bottom navigation, safe-area insets, and sticky checkout bars.
 - Semantic HTML tags (`<main>`, `<header>`, `<nav>`, `role="tablist"`, `role="tab"`, `role="radiogroup"`, `role="radio"`, `role="dialog"`).
 - Keyboard accessible with `tabIndex={0}`, `Enter`/`Space` handlers, and `Escape` key dialog closing.

@@ -28,7 +28,7 @@ export function AppShell({
       {/* Desktop Responsive Top Navigation (Hidden on Mobile, Visible on md+) */}
       {showDesktopNav && (
         <header className="hidden md:block sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-zinc-200/80 shadow-2xs">
-          <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+          <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             {/* Logo & Brand */}
             <div className="flex items-center gap-6">
               <Link href="/" className="flex items-center gap-2 group">
@@ -125,13 +125,13 @@ export function AppShell({
       )}
 
       {/* Main Responsive Content Container */}
-      <div className={`flex-1 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 ${className}`}>
+      <div className={`flex-1 w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 ${className}`}>
         {children}
       </div>
 
       {/* Desktop Footer (Hidden on Mobile) */}
       <footer className="hidden md:block border-t border-zinc-200/80 bg-white py-6 mt-auto">
-        <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
+        <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
           <div className="flex items-center gap-2">
             <Building2 className="h-4 w-4 text-[#712CDC]" />
             <span>
