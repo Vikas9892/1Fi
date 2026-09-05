@@ -68,6 +68,12 @@ describe("Catalog Repository & Variant Engine", () => {
     expect(phone?.brand).toBe("Apple");
   });
 
+  it("retrieves product by ID correctly", () => {
+    const phone = getProductById("prod-iphone-16-pro");
+    expect(phone).toBeDefined();
+    expect(phone?.slug).toBe("iphone-16-pro");
+  });
+
   it("returns undefined for non-existent product slug", () => {
     const phone = getProductBySlug("non-existent-device-slug");
     expect(phone).toBeUndefined();

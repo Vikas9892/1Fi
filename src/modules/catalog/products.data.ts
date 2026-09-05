@@ -12,10 +12,10 @@ export const PRODUCTS: Product[] = [
     badge: "0% EMI",
     isNew: true,
     isPopular: true,
-    thumbnail: "/products/iphone-16-pro.webp",
+    thumbnail: "/products/iphone-16-pro.jpg",
     images: [
-      "/products/iphone-16-pro.webp",
-      "/products/iphone-16.webp",
+      "/products/iphone-16-pro.jpg",
+      "/products/iphone-16-pro-detail.webp",
     ],
     partnerLender: "Tata Capital Financial Services",
     keyFeatures: [
@@ -106,10 +106,10 @@ export const PRODUCTS: Product[] = [
     badge: "Bestseller",
     isNew: true,
     isPopular: true,
-    thumbnail: "/products/iphone-16.webp",
+    thumbnail: "/products/iphone-16.jpg",
     images: [
-      "/products/iphone-16.webp",
-      "/products/iphone-16-pro.webp",
+      "/products/iphone-16.jpg",
+      "/products/iphone-16-detail.webp",
     ],
     partnerLender: "Bajaj Finserv Limited",
     keyFeatures: [
@@ -180,10 +180,10 @@ export const PRODUCTS: Product[] = [
     badge: "0% EMI",
     isNew: false,
     isPopular: true,
-    thumbnail: "/products/galaxy-s24-ultra.webp",
+    thumbnail: "/products/galaxy-s24-ultra.jpg",
     images: [
-      "/products/galaxy-s24-ultra.webp",
-      "/products/galaxy-s24.webp",
+      "/products/galaxy-s24-ultra.jpg",
+      "/products/galaxy-s24-ultra-detail.webp",
     ],
     partnerLender: "Tata Capital Financial Services",
     keyFeatures: [
@@ -254,10 +254,10 @@ export const PRODUCTS: Product[] = [
     badge: "Trending",
     isNew: false,
     isPopular: false,
-    thumbnail: "/products/galaxy-s24.webp",
+    thumbnail: "/products/galaxy-s24.jpg",
     images: [
-      "/products/galaxy-s24.webp",
-      "/products/galaxy-s24-ultra.webp",
+      "/products/galaxy-s24.jpg",
+      "/products/galaxy-s24-detail.webp",
     ],
     partnerLender: "DSP Finance Private Limited",
     keyFeatures: [
@@ -318,10 +318,10 @@ export const PRODUCTS: Product[] = [
     badge: "0% EMI",
     isNew: true,
     isPopular: true,
-    thumbnail: "/products/pixel-9-pro.webp",
+    thumbnail: "/products/pixel-9-pro.jpg",
     images: [
-      "/products/pixel-9-pro.webp",
-      "/products/pixel-9.webp",
+      "/products/pixel-9-pro.jpg",
+      "/products/pixel-9-pro-detail.webp",
     ],
     partnerLender: "Tata Capital Financial Services",
     keyFeatures: [
@@ -392,10 +392,10 @@ export const PRODUCTS: Product[] = [
     badge: "New Launch",
     isNew: true,
     isPopular: false,
-    thumbnail: "/products/pixel-9.webp",
+    thumbnail: "/products/pixel-9.jpg",
     images: [
-      "/products/pixel-9.webp",
-      "/products/pixel-9-pro.webp",
+      "/products/pixel-9.jpg",
+      "/products/pixel-9-detail.webp",
     ],
     partnerLender: "Bajaj Finserv Limited",
     keyFeatures: [
@@ -456,10 +456,10 @@ export const PRODUCTS: Product[] = [
     badge: "0% EMI",
     isNew: false,
     isPopular: true,
-    thumbnail: "/products/oneplus-12.webp",
+    thumbnail: "/products/oneplus-12.jpg",
     images: [
-      "/products/oneplus-12.webp",
-      "/products/galaxy-s24-ultra.webp",
+      "/products/oneplus-12.jpg",
+      "/products/oneplus-12-detail.webp",
     ],
     partnerLender: "Tata Capital Financial Services",
     keyFeatures: [

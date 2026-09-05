@@ -19,7 +19,7 @@ This submission is designed strictly as a **production-grade product extension**
    - **Tablet (`768px`)**: Intelligent 2–3 column product grid and balanced padding.
    - **Desktop (`1024px–1440px+`)**: Full responsive application shell (`max-w-[1440px]`) with top navigation header, trust indicators, 4-column product grid, two-column desktop PDP (sticky left gallery & specs; right price, variant & EMI controls), and two-column Plan Review layout.
 3. **Robust Asset Architecture**:
-   - Every product in the catalog has an optimized local asset in `public/products/` (`iphone-16-pro.webp`, `iphone-16.webp`, `galaxy-s24-ultra.webp`, `galaxy-s24.webp`, `pixel-9-pro.webp`, `pixel-9.webp`, `oneplus-12.webp`).
+   - Every product in the catalog has an optimized local full-device primary asset in `public/products/` (`<slug>.jpg`) alongside secondary detail assets (`<slug>-detail.webp`), ensuring recognizable full-device framing across ProductCard, PDP hero, and thumbnails.
    - Integrated `ProductImage` component provides branded SVG fallback, skeleton loading, and zero layout shift.
 4. **Fintech UX & Mutual Fund Transparency**: Every screen reinforces the financial relationship: price after cashback, transparent EMI tenures (3, 6, 12, 24 months), mutual fund lien pledge through SEBI-registered RTAs (CAMS, KFintech, MFCentral), and clear regulatory distinction between 1Fi (point-of-sale checkout tech) and regulated NBFC lending partners (Tata Capital, Bajaj Finserv, DSP Finance).
 5. **Pure Financial Calculations**: Financial calculations (0% EMI, reducing-balance amortized APR, interest breakdown, and affordability shortfall) are implemented in pure, typed, independently testable modules with zero JSX or React dependencies.
