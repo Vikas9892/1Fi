@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+:root {
+  --primary: #712cdc;
+  --primary-hover: #5e24b7;
+  --primary-light: #f5f0ff;
+  --primary-border: #ece5ff;
+}
+
+/* Custom scrollbar hiding for mobile horizontal tabs */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Glassmorphism token */
+.glass-nav {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
